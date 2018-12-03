@@ -1,4 +1,4 @@
-// import audioBufferToWav from 'https://raw.githubusercontent.com/tchakabam/audiobuffer-to-wav/ee8ac0246472d7fda1e7663b425f3e2aa0224f13/index.js'
+/* global audioBufferToWav saveAs */
 
 export default function mochaAudio (runner) {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
