@@ -1,0 +1,38 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Audio Snapshot Testing</title>
+  <link href="https://unpkg.com/mocha@5.2.0/mocha.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="mocha"></div>
+
+  <script>module = {} // audiobuffer-to-wav assumes CommonJS </script>
+  <script src="https://unpkg.com/chai/chai.js"></script>
+  <script src="https://unpkg.com/mocha@5.2.0/mocha.js"></script>
+  <script src="https://unpkg.com/audiobuffer-to-wav@1.0.0/index.js"></script>
+  <script src="https://unpkg.com/file-saver@2.0.0/dist/FileSaver.js"></script>
+
+  <script>
+    chai.should()
+    mocha.setup('bdd')
+  </script>
+
+  <script type="module">
+    import './sadtrombone-test.js'
+    import mochaAudio from './mocha-audio.js'
+    import assertEqualAudioBuffer from './assert-audio.js'
+
+    chai.use(function (_chai, utils) {
+      chai.Assertion.addMethod('eqlAudio', function (expected) {
+        const actual = utils.flag(this, 'object')
+        const negate = utils.flag(this, 'negate')
+        assertEqualAudioBuffer(actual, expected, negate)
+      })
+    })
+
+    const runner = mocha.run()
+    mochaAudio(runner)
+  </script>
+</body>
+</html>

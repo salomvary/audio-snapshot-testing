@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>🎺😢</title>
+    <meta charset="utf-8">
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      button {
+        font-size: 100px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <button>🎺😢</button>
+    <script type="module">
+      import sadtrombone from './sadtrombone.js'
+
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)
+      const button = document.querySelector('button')
+      button.onclick = () => sadtrombone(audioContext)
+    </script>
+  </body>
+</html>
