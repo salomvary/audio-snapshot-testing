@@ -8,9 +8,22 @@ describe('Sad Trombone', function () {
   beforeEach(fetchAudioSnapshots(audioCtx))
 
   it('should render sad trombone', async function () {
-    const offlineCtx = new OfflineCtx(2, 1.8 * 44100, 44100)
-    sadtrombone(offlineCtx)
-    const rendered = await offlineCtx.startRendering()
+    const rendered = await render(1.8, (offlineCtx) => {
+      sadtrombone(offlineCtx)
+    })
+
     rendered.should.be.eqlAudio(this.snapshot)
   })
 })
+
+function render (length, fn) {
+  const offlineCtx = new OfflineCtx(2, length * 44100, 44100)
+  fn(offlineCtx)
+  offlineCtx.startRendering()
+  // Safari does not have the promise based API for startRendering
+  return new Promise(function (resolve) {
+    offlineCtx.oncomplete = (e) => {
+      resolve(e.renderedBuffer)
+    }
+  })
+}

@@ -27,9 +27,16 @@ export function fetchAudioSnapshots (audioCtx) {
 
     // Decode the snapshot if available or replace with an empty buffer
     const audioBuffer = arrayBuffer
-      ? await audioCtx.decodeAudioData(arrayBuffer)
+      ? await decodeAudioData(arrayBuffer)
       : audioCtx.createBuffer(2, 2, 44100)
 
     this.snapshot = audioBuffer
+  }
+
+  // Safari does not have the promise based API for decodeAudioDataxw
+  function decodeAudioData (arrayBuffer) {
+    return new Promise (function (resolve, reject) {
+      audioCtx.decodeAudioData(arrayBuffer, resolve, reject)
+    })
   }
 }
