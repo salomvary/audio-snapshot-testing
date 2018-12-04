@@ -56,8 +56,11 @@ no existing test framework supports **audio** snapshot testing.
 This repo contains the basics needed for audio snapshot testing. It is not a
 fully elaborate framework, rather a draft implementation of an idea.
 
-See the [the demo app](index.html) and the [test suite](test.html) running
-in the browser. Browse [the source](./) to learn more about the details.
+See the [the demo app](https://salomvary.com/audio-snapshot-testing/test.html)
+and the [test suite](https://salomvary.com/audio-snapshot-testing/test.html)
+running in the browser. Browse [the
+source](https://github.com/salomvary/audio-snapshot-testing/) to learn more
+about the details.
 
 ## Gotchas
 
