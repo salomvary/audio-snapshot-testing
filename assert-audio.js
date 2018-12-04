@@ -1,8 +1,19 @@
+/**
+ * Framework-agnostic assertion to verify if two AudioBuffers are "equal"
+ *
+ * @param {AudioBuffer} actual
+ * @param {AudioBuffer} expected
+ * @param {boolean} negate if true, verify buffers to be *not* equal
+ *
+ * @throws {Error} assertion error if the verification fails
+ */
 export default function assertEqualAudioBuffer (actual, expected, negate) {
+  // Compare length and number of channels first
   let isEqual = actual.duration === expected.duration &&
     actual.numberOfChannels === expected.numberOfChannels &&
     actual.length === expected.length
 
+  // Compare the samples in all channels
   for (
     let channel = 0;
     channel < actual.numberOfChannels && isEqual;
@@ -14,6 +25,7 @@ export default function assertEqualAudioBuffer (actual, expected, negate) {
     )
   }
 
+  // Throw assertion error with `actual` and `expected` exposed
   if (negate ? isEqual : !isEqual) {
     const message = negate
       ? 'expected ' + inspectBuffer(actual) + ' to not be an equal audio buffer to ' + inspectBuffer(expected)

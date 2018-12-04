@@ -1,3 +1,15 @@
+/**
+ * Audio snapshot loader hook for Moacha
+ *
+ * Usage:
+ *   beforeEach(fetchAudioSnapshots(new AudioContext()))
+ *
+ * The audio snapshot is fetched as WAV file under a URL generated from the test
+ * name and exposed as an AudioBuffer at this.snapshot.
+ *
+ * @param {AudioContext} audioCtx
+ * @returns {function} the beforeEach hook
+ */
 export function fetchAudioSnapshots (audioCtx) {
   return async function fetchAudioSnapshots () {
     // Load audio snapshot from an url derived from the test title
@@ -12,6 +24,7 @@ export function fetchAudioSnapshots (audioCtx) {
             `Make sure there is a WAV file at "${url}"`)
         }
       })
+
     // Decode the snapshot if available or replace with an empty buffer
     const audioBuffer = arrayBuffer
       ? await audioCtx.decodeAudioData(arrayBuffer)

@@ -1,7 +1,12 @@
+/**
+ * A simple synth that plays a short but sad tune :(
+ *
+ * @param {AudioContext} audioContext
+ */
 export default function sadtrombone (audioContext) {
   const base = 300
   const step = 6/5
-  const tempo = 0.3
+  const tempo = 1
 
   const osc = audioContext.createOscillator()
   osc.type = 'sawtooth'

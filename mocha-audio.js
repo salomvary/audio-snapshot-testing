@@ -1,25 +1,41 @@
 /* global audioBufferToWav saveAs */
 
+/**
+ * Mocha HTML reporter extension to support audio snapshot teting
+ *
+ * Usage:
+ *   const runner = mocha.run()
+ *   mochaAudio(runner)
+ *
+ * @param {Runner} runner Mocha Runner instance
+ */
 export default function mochaAudio (runner) {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
-  runner.on('fail', (test) => {
+  runner.on('fail', function onFail (test) {
     if (!(test.err.actual instanceof AudioBuffer && test.err.expected instanceof AudioBuffer)) {
       return
     }
 
+    // The Mocha UI extension was inspired by
+    // https://toucantoco.com/en/tech-blog/tech/visual-tdd
+
     try {
+      // Add a wrapper element after the last test
+      // (they are appended sequentially by Mocha)
       const testsReportsElements = document.getElementsByClassName('test')
       const testReport = testsReportsElements[testsReportsElements.length - 1]
       const wrapper = document.createElement('li')
       testReport.parentElement.appendChild(wrapper)
 
+      // Append a player for the actual output
       addPlayer(wrapper, {
         title: 'Actual:',
         buffer: test.err.actual,
         fileName: test.fullTitle() + '.wav'
       })
 
+      // Append a player for the expected output
       addPlayer(wrapper, {
         title: 'Expected:',
         buffer: test.err.expected,
@@ -51,7 +67,7 @@ export default function mochaAudio (runner) {
       source = null
     }
 
-    playButton.onclick = function () {
+    playButton.onclick = function onPlayClick () {
       if (source) {
         source.stop()
         source = null
@@ -66,7 +82,7 @@ export default function mochaAudio (runner) {
       }
     }
 
-    downloadButton.onclick = function () {
+    downloadButton.onclick = function onDownloadClick () {
       exportWav(buffer, fileName)
     }
   }
