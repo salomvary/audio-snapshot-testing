@@ -16,7 +16,14 @@ describe('Sad Trombone', function () {
   })
 })
 
-function render (length, fn) {
+/**
+ * Render audio output to an "offline buffer"
+ *
+ * @param {number} length the length of the buffer to capture in seconds
+ * @param {function} fn
+ * @returns {AudioBuffer} the rendered buffer
+ */
+async function render (length, fn) {
   const offlineCtx = new OfflineCtx(2, length * 44100, 44100)
   fn(offlineCtx)
   offlineCtx.startRendering()
