@@ -26,6 +26,7 @@ export default function mochaAudio (runner) {
       const testsReportsElements = document.getElementsByClassName('test')
       const testReport = testsReportsElements[testsReportsElements.length - 1]
       const wrapper = document.createElement('li')
+      wrapper.className = 'mocha-audio-snapshots test'
       testReport.parentElement.appendChild(wrapper)
 
       // Append a player for the actual output
@@ -78,7 +79,7 @@ export default function mochaAudio (runner) {
         source.connect(audioCtx.destination)
         source.start()
         source.onended = onEnded
-        playButton.innerHTML = '◼'
+        playButton.innerHTML = '◾'
       }
     }
 
