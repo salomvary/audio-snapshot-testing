@@ -20,6 +20,11 @@
         font-size: 100px;
         border-radius: 10px;
       }
+      #qrcode img {
+        margin: 0px auto;
+        width: 128px;
+        height: 128px;
+      }
     </style>
   </head>
   <body>
@@ -31,6 +36,9 @@
         <a href="test.html">Test suite</a> |
         <a href="https://github.com/salomvary/audio-snapshot-testing/">GitHub</a>
       </p>
+      <p>
+        <div id="qrcode"></div>
+      </p>
     </main>
     <script type="module">
       import sadtrombone from './sadtrombone.js'
@@ -38,6 +46,14 @@
       const audioContext = new (window.AudioContext || window.webkitAudioContext)
       const button = document.querySelector('button')
       button.onclick = () => sadtrombone(audioContext)
+    </script>
+    <script src="//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script type="text/javascript">
+      new QRCode(document.getElementById('qrcode'), {
+        text: window.location.href,
+        width: 256,
+        height: 256
+      })
     </script>
   </body>
 </html>
