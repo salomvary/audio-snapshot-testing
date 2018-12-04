@@ -14,6 +14,23 @@ describe('Sad Trombone', function () {
 
     rendered.should.be.eqlAudio(this.snapshot)
   })
+
+  it('should render sad trombone with a faster tempo', async function () {
+    const rendered = await render(0.6, (offlineCtx) => {
+      const tempo = 0.15
+      sadtrombone(offlineCtx, tempo)
+    })
+
+    rendered.should.be.eqlAudio(this.snapshot)
+  })
+
+  it('should fail so that we can see the player', async function () {
+    const rendered = await render(1.8, (offlineCtx) => {
+      sadtrombone(offlineCtx)
+    })
+
+    rendered.should.be.eqlAudio(this.snapshot)
+  })
 })
 
 /**

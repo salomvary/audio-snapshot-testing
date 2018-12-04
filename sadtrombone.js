@@ -3,10 +3,9 @@
  *
  * @param {AudioContext} audioContext
  */
-export default function sadtrombone (audioContext) {
+export default function sadtrombone (audioContext, tempo = 0.3) {
   const base = 300
   const step = 6/5
-  const tempo = 1
 
   const osc = audioContext.createOscillator()
   osc.type = 'sawtooth'
